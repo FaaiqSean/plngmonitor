@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monitoring CKG — Puskesmas Pulung</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="app">
+  <div class="overlay" id="overlay"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12h4l2 7 4-14 2 7h6" stroke="#EAF3EF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="brand-text">
+        <span>Puskesmas Pulung</span>
+        <h1>Monitoring CKG</h1>
+      </div>
+    </div>
+    <nav class="nav" id="nav" aria-label="Navigasi utama">
+      <button class="nav-item active" data-view="dashboard" type="button">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5" stroke="currentColor" stroke-width="1.8"/><rect x="14" y="3" width="7" height="5" rx="1.5" stroke="currentColor" stroke-width="1.8"/><rect x="14" y="12" width="7" height="9" rx="1.5" stroke="currentColor" stroke-width="1.8"/><rect x="3" y="16" width="7" height="5" rx="1.5" stroke="currentColor" stroke-width="1.8"/></svg>
+        Dasbor Utama
+      </button>
+      <button class="nav-item" data-view="pegawai" type="button">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9" cy="8" r="3.2" stroke="currentColor" stroke-width="1.8"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M16 5.2a3.2 3.2 0 0 1 0 6.2M21 20c0-3-2-5.3-4.6-5.9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Capaian Pegawai
+      </button>
+      <button class="nav-item" data-view="data" type="button">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6c0-1.1 3.6-2 8-2s8 .9 8 2-3.6 2-8 2-8-.9-8-2Z" stroke="currentColor" stroke-width="1.8"/><path d="M4 6v6c0 1.1 3.6 2 8 2s8-.9 8-2V6" stroke="currentColor" stroke-width="1.8"/><path d="M4 12v6c0 1.1 3.6 2 8 2s8-.9 8-2v-6" stroke="currentColor" stroke-width="1.8"/></svg>
+        Data &amp; Riwayat
+      </button>
+      <button class="nav-item" data-view="unduh" type="button">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Unduh Laporan
+      </button>
+      <button class="nav-item" data-view="pengaturan" type="button">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1-1.55 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.55-1H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.55V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9c.14.6.6 1.06 1.55 1H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.51 1Z" stroke="currentColor" stroke-width="1.6"/></svg>
+        Pengaturan
+      </button>
+    </nav>
+    <div class="sidebar-foot">
+      Sinkron data Google Sheet<br>otomatis setiap dibuka.
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-row">
+        <div class="topbar-left">
+          <button class="hamburger" id="hamburgerBtn" type="button" aria-label="Buka menu navigasi">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+          <div class="page-title">
+            <h2 id="pageTitle">Dasbor Utama</h2>
+            <p id="pageSubtitle">Ringkasan capaian Cek Kesehatan Gratis (CKG)</p>
+          </div>
+        </div>
+        <span class="demo-badge" id="demoBadge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 9v4m0 4h.01M10.3 3.9 2.5 17.5c-.6 1 .1 2.5 1.4 2.5h16.2c1.3 0 2-1.5 1.4-2.5L13.7 3.9c-.7-1.2-2.6-1.2-3.4 0Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Mode Demo — data contoh, belum tersambung Google Sheet
+        </span>
+      </div>
+      <svg class="pulse-rule" viewBox="0 0 800 22" preserveAspectRatio="none" aria-hidden="true"><path d="M0 11 H320 L335 2 L350 20 L365 11 H480 L495 4 L508 18 L522 11 H800"/></svg>
+    </div>
+
+    <div class="content">
+
+      <!-- ============ DASHBOARD ============ -->
+      <section class="view active" id="view-dashboard">
+        <div class="row g-3" id="summaryCards"></div>
+
+        <div class="section-title"><h3>Tren Capaian</h3></div>
+        <div class="row g-3">
+          <div class="col-12 col-lg-6">
+            <div class="card chart-card h-100">
+              <h3>Capaian Harian <span class="chart-subtitle">30 hari terakhir</span></h3>
+              <div class="chart-wrap"><canvas id="chartHarian" role="img" aria-label="Grafik capaian harian 30 hari terakhir"></canvas></div>
+              <p class="chart-insight" id="insightHarian"></p>
+            </div>
+          </div>
+          <div class="col-12 col-lg-6">
+            <div class="card chart-card h-100">
+              <h3>Capaian Bulanan <span class="chart-subtitle" id="tahunLabel"></span></h3>
+              <div class="chart-wrap"><canvas id="chartBulanan" role="img" aria-label="Grafik capaian bulanan tahun berjalan"></canvas></div>
+              <p class="chart-insight" id="insightBulanan"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-3 mt-3">
+          <div class="col-12 col-lg-6">
+            <div class="card chart-card h-100">
+              <h3>Capaian Tahunan</h3>
+              <div class="chart-wrap"><canvas id="chartTahunan" role="img" aria-label="Grafik capaian tahunan"></canvas></div>
+            </div>
+          </div>
+          <div class="col-12 col-lg-6">
+            <div class="card chart-card h-100">
+              <h3>Distribusi Jenis Kegiatan</h3>
+              <div class="chart-wrap"><canvas id="chartKegiatan" role="img" aria-label="Grafik distribusi jenis kegiatan"></canvas></div>
+              <p class="chart-insight" id="insightKegiatan"></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ PEGAWAI ============ -->
+      <section class="view" id="view-pegawai">
+        <div class="row g-3">
+          <div class="col-12">
+            <div class="card chart-card">
+              <h3>Capaian per Pegawai</h3>
+              <div class="chart-wrap chart-wrap-lg" id="pegawaiChartWrap"><canvas id="chartPegawai" role="img" aria-label="Grafik capaian per pegawai"></canvas></div>
+              <div class="legend-row">
+                <div class="legend-item"><span class="legend-dot legend-dot-low"></span>Rendah (&lt; <span id="labLow"></span>)</div>
+                <div class="legend-item"><span class="legend-dot legend-dot-medium"></span>Sedang (<span id="labMedRange"></span>)</div>
+                <div class="legend-item"><span class="legend-dot legend-dot-high"></span>Tinggi (≥ <span id="labHigh"></span>)</div>
+              </div>
+              <p class="chart-insight" id="insightPegawai"></p>
+            </div>
+          </div>
+        </div>
+        <div class="section-title"><h3>Peringkat &amp; Interpretasi</h3></div>
+        <div class="card">
+          <div class="rank-list" id="rankList"></div>
+        </div>
+      </section>
+
+      <!-- ============ DATA ============ -->
+      <section class="view" id="view-data">
+        <div class="card table-card">
+          <div class="table-toolbar">
+            <div class="filters">
+              <div class="field">
+                <label for="fPegawai">Pegawai</label>
+                <select id="fPegawai" class="form-select"><option value="">Semua</option></select>
+              </div>
+              <div class="field">
+                <label for="fKegiatan">Jenis kegiatan</label>
+                <select id="fKegiatan" class="form-select"><option value="">Semua</option></select>
+              </div>
+              <div class="field">
+                <label for="fDari">Dari tanggal</label>
+                <input type="date" id="fDari" class="form-control">
+              </div>
+              <div class="field">
+                <label for="fSampai">Sampai tanggal</label>
+                <input type="date" id="fSampai" class="form-control">
+              </div>
+            </div>
+            <button class="btn btn-outline btn-sm" id="resetFilter" type="button">Reset filter</button>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Tanggal</th><th scope="col">Nama Pegawai</th><th scope="col">Jenis Kegiatan</th><th scope="col">Jumlah</th><th scope="col">Nama yang Diperiksa</th><th scope="col">Keterangan</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody"></tbody>
+            </table>
+            <div class="empty-state d-none" id="tableEmpty">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6c0-1.1 3.6-2 8-2s8 .9 8 2-3.6 2-8 2-8-.9-8-2Z" stroke="currentColor" stroke-width="1.6"/><path d="M4 6v12c0 1.1 3.6 2 8 2s8-.9 8-2V6" stroke="currentColor" stroke-width="1.6"/></svg>
+              <div>Tidak ada data yang cocok dengan filter ini.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ UNDUH ============ -->
+      <section class="view" id="view-unduh">
+        <div class="panel">
+          <div class="notice">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 8v5m0 3h.01M12 2 2 20h20L12 2Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+            <p><strong>Bukti input untuk laporan</strong>Pilih rentang tanggal dan/atau pegawai, lalu unduh sebagai Excel atau PDF sebagai bukti input kegiatan CKG.</p>
+          </div>
+          <div class="card">
+            <h3>Filter unduhan</h3>
+            <div class="form-row">
+              <div class="field">
+                <label for="dPegawai">Pegawai</label>
+                <select id="dPegawai" class="form-select"><option value="">Semua pegawai</option></select>
+              </div>
+              <div class="field">
+                <label for="dDari">Dari tanggal</label>
+                <input type="date" id="dDari" class="form-control">
+              </div>
+              <div class="field">
+                <label for="dSampai">Sampai tanggal</label>
+                <input type="date" id="dSampai" class="form-control">
+              </div>
+            </div>
+            <p class="card-sub mb-3" id="downloadCount">0 baris data sesuai filter.</p>
+            <div class="d-flex gap-2 flex-wrap">
+              <button class="btn btn-primary" id="btnExportExcel" type="button">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+                Unduh Excel (.xlsx)
+              </button>
+              <button class="btn btn-accent" id="btnExportPdf" type="button">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+                Unduh PDF
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ PENGATURAN ============ -->
+      <section class="view" id="view-pengaturan">
+        <div class="panel">
+
+          <!-- gerbang kata sandi: tampil dulu sebelum isi Pengaturan bisa diakses -->
+          <div class="card" id="pengaturanLock">
+            <h3>Akses Terbatas</h3>
+            <p class="card-sub mb-3">Halaman ini dilindungi kata sandi agar tidak semua orang bisa mengubah pengaturan.</p>
+            <div class="form-row">
+              <div class="field field-grow">
+                <label for="pengaturanPassword">Kata sandi</label>
+                <input type="password" id="pengaturanPassword" class="form-control w-100" placeholder="Masukkan kata sandi" autocomplete="off">
+              </div>
+            </div>
+            <div class="d-flex gap-2 flex-wrap align-items-center">
+              <button class="btn btn-primary btn-sm" id="unlockPengaturan" type="button">Buka Halaman</button>
+              <span class="card-sub mb-0" id="pengaturanError" style="color:var(--low);display:none;">Kata sandi salah, coba lagi.</span>
+            </div>
+          </div>
+
+          <div id="pengaturanContent" style="display:none;">
+          <div class="card mb-4">
+            <h3>Sambungan Google Sheet</h3>
+            <p class="card-sub mb-3">Tempel URL Web App Google Apps Script di sini agar dasbor menampilkan data asli, bukan data demo.</p>
+
+            <div class="conn-status conn-idle" id="connStatus">
+              <span class="conn-dot"></span>
+              <div><strong>Memuat status…</strong></div>
+            </div>
+
+            <div class="form-row mt-3">
+              <div class="field field-grow">
+                <label for="apiUrlInput">URL Web App (Apps Script)</label>
+                <input type="text" id="apiUrlInput" class="form-control w-100" placeholder="https://script.google.com/macros/s/xxxxx/exec">
+              </div>
+            </div>
+            <div class="d-flex gap-2 flex-wrap">
+              <button class="btn btn-outline btn-sm" id="testConnection" type="button">Uji Koneksi</button>
+              <button class="btn btn-outline btn-sm" id="openApiUrl" type="button">Buka URL di tab baru</button>
+              <button class="btn btn-primary btn-sm" id="saveApiUrl" type="button">Simpan &amp; Muat Ulang Data</button>
+            </div>
+
+            <div class="conn-status d-none mt-3" id="connTestResult"></div>
+
+            <div class="notice mt-3">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 8v5m0 3h.01M12 2 2 20h20L12 2Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+              <p><strong>Cara memeriksa alur Form → Sheet → Dashboard</strong>1) Isi Google Form sekali sebagai percobaan. 2) Buka Google Sheet, pastikan jawaban masuk ke tab "INPUT_CKG". 3) Tempel URL Web App di atas, klik "Uji Koneksi" — jika berhasil, jumlah baris dan input terbaru akan ditampilkan.</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Ambang Batas Capaian Pegawai</h3>
+            <p class="card-sub mb-3">Atur batas jumlah input untuk kategori rendah, sedang, dan tinggi.</p>
+            <div class="threshold-editor">
+              <div class="threshold-row">
+                <span class="badge badge-low"><span class="dot"></span>Rendah</span>
+                <span>di bawah</span>
+                <label for="thLow" class="visually-hidden">Ambang batas rendah</label>
+                <input type="number" id="thLow" class="form-control" min="1">
+              </div>
+              <div class="threshold-row">
+                <span class="badge badge-high"><span class="dot"></span>Tinggi</span>
+                <span>mulai dari</span>
+                <label for="thHigh" class="visually-hidden">Ambang batas tinggi</label>
+                <input type="number" id="thHigh" class="form-control" min="1">
+              </div>
+              <p class="card-sub mb-0">Sedang otomatis berada di antara kedua angka ini.</p>
+              <div>
+                <button class="btn btn-primary btn-sm" id="saveThreshold" type="button">Simpan ambang batas</button>
+              </div>
+            </div>
+          </div>
+          </div><!-- /#pengaturanContent -->
+        </div>
+      </section>
+
+    </div>
+
+    <footer class="app-footer">
+      Monitoring CKG · Puskesmas Pulung — dibuat untuk memudahkan pemantauan Cek Kesehatan Gratis harian, bulanan, dan tahunan.
+    </footer>
+  </div>
+</div>
+
+<script>
+/* ------------------------------------------------------------------
+   PEMUAT LIBRARY DENGAN CADANGAN (FALLBACK) CDN
+   ------------------------------------------------------------------
+   Sebelumnya tiap library (Chart.js, xlsx, jsPDF, autotable) hanya
+   dimuat dari SATU alamat CDN (cdnjs.cloudflare.com). Kalau alamat
+   itu diblokir/lambat di jaringan Puskesmas, library gagal dimuat
+   dan chart tidak muncul ("Grafik gagal dimuat"). Sekarang tiap
+   library dicoba dari beberapa CDN berbeda secara berurutan — kalau
+   yang pertama gagal, otomatis coba CDN berikutnya.
+------------------------------------------------------------------- */
+(function(){
+  function loadWithFallback(urls, onDone){
+    var i = 0;
+    function attempt(){
+      if(i >= urls.length){ onDone(false); return; }
+      var url = urls[i++];
+      var el = document.createElement('script');
+      el.src = url;
+      el.onload = function(){ onDone(true); };
+      el.onerror = function(){ attempt(); };
+      document.head.appendChild(el);
+    }
+    attempt();
+  }
+  window.__ckgLoadWithFallback = loadWithFallback;
+})();
+</script>
+<script>
+__ckgLoadWithFallback([
+  'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js',
+  'https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js',
+  'https://unpkg.com/chart.js@4.4.4/dist/chart.umd.min.js'
+], function(){});
+__ckgLoadWithFallback([
+  'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js',
+  'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js',
+  'https://unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js'
+], function(){});
+__ckgLoadWithFallback([
+  'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js',
+  'https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js',
+  'https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js'
+], function(){});
+__ckgLoadWithFallback([
+  'https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js',
+  'https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js',
+  'https://unpkg.com/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js'
+], function(){});
+</script>
+<script src="kop-logo.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
