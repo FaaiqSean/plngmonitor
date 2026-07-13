@@ -50,11 +50,20 @@
    1. KONFIGURASI
    ============================================================ */
 const API_URL_KEY = 'ckg_api_url';
+
+// URL Web App Apps Script yang sudah di-deploy (lihat Code.gs).
+// Ditulis langsung di sini (bukan cuma di localStorage) supaya dashboard
+// ini otomatis tersambung ke Google Sheet yang SAMA di perangkat manapun
+// dibuka — HP, laptop, browser lain — tanpa perlu isi URL manual dulu
+// lewat halaman Pengaturan. Kalau suatu saat re-deploy Apps Script dan
+// dapat URL baru, cukup ganti nilai di bawah ini.
+const DEFAULT_API_URL = 'https://script.google.com/macros/s/AKfycbwpcsOjaL1EKdwyhaEfDiOqdFxZuR2sV9zCFTKy9kCSV2onIeCBDS0w4oJEt6gymjbL/exec';
+
 const CONFIG = {
-  // BUG LAMA: kode sebelumnya memakai localStorage.getItem(<url lengkap>)
-  // sehingga key yang dicari salah dan URL yang tersimpan tidak pernah
-  // terbaca kembali. Sekarang dibaca dengan key yang benar.
-  API_URL: localStorage.getItem(API_URL_KEY) || ''
+  // Prioritas: kalau perangkat ini pernah menyimpan URL sendiri lewat
+  // halaman Pengaturan (misalnya untuk uji coba URL lain), pakai itu.
+  // Kalau tidak ada, pakai DEFAULT_API_URL di atas supaya tetap sinkron.
+  API_URL: localStorage.getItem(API_URL_KEY) || DEFAULT_API_URL
 };
 
 const THRESH_DEFAULT = { low: 100, high: 200 };
