@@ -336,16 +336,24 @@ __ckgLoadWithFallback([
   'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js',
   'https://unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js'
 ], function(){});
+/* PENTING: jspdf-autotable HARUS baru mulai dimuat SETELAH jsPDF selesai
+   dimuat (bukan dipanggil bersamaan). Script yang dibuat lewat
+   document.createElement berjalan begitu selesai didownload, tanpa
+   jaminan urutan — kalau autotable kebetulan selesai duluan (tergantung
+   kecepatan CDN saat itu), plugin ini gagal menempel ke jsPDF dan
+   memicu error "doc.autoTable is not a function". Makanya sebelumnya
+   kadang normal, kadang error lagi (tergantung race condition jaringan). */
 __ckgLoadWithFallback([
   'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js',
   'https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js',
   'https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js'
-], function(){});
-__ckgLoadWithFallback([
-  'https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js',
-  'https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js',
-  'https://unpkg.com/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js'
-], function(){});
+], function(){
+  __ckgLoadWithFallback([
+    'https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js',
+    'https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js',
+    'https://unpkg.com/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js'
+  ], function(){});
+});
 </script>
 <script src="kop-logo.js"></script>
 <script src="script.js"></script>
