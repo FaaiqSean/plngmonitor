@@ -204,9 +204,9 @@
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
                 Unduh Excel (.xlsx)
               </button>
-              <button class="btn btn-accent" id="btnExportPdf" type="button">
+              <button class="btn btn-accent" id="btnExportPdf" type="button" disabled title="Menyiapkan library PDF...">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
-                Unduh PDF
+                <span id="btnExportPdfLabel">Menyiapkan PDF…</span>
               </button>
             </div>
           </div>
@@ -352,7 +352,24 @@ __ckgLoadWithFallback([
     'https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js',
     'https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js',
     'https://unpkg.com/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js'
-  ], function(){});
+  ], function(ok){
+    // Tombol "Unduh PDF" sengaja dinonaktifkan (lihat atribut disabled di HTML)
+    // sampai baris ini jalan, supaya tidak bisa diklik SEBELUM jsPDF +
+    // autoTable selesai dimuat dari CDN (itu penyebab error
+    // "doc.autoTable is not a function" yang muncul kalau tombol diklik
+    // terlalu cepat setelah halaman dibuka).
+    var btn = document.getElementById('btnExportPdf');
+    var label = document.getElementById('btnExportPdfLabel');
+    if(!btn) return;
+    if(ok && window.jspdf && window.jspdf.jsPDF && window.jspdf.jsPDF.API && window.jspdf.jsPDF.API.autoTable){
+      btn.disabled = false;
+      btn.title = '';
+      if(label) label.textContent = 'Unduh PDF';
+    }else{
+      btn.title = 'Gagal memuat library PDF. Coba muat ulang halaman atau periksa koneksi internet.';
+      if(label) label.textContent = 'PDF tidak tersedia';
+    }
+  });
 });
 </script>
 <script src="kop-logo.js"></script>
